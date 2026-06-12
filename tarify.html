@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Прогулки на яхтах и катерах в Санкт-Петербурге</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05070b;
+      --gold: #d8a74a;
+      --gold-light: #e7c06a;
+      --text: #f7f4ee;
+      --muted: #b8bdc7;
+      --glass: rgba(255, 255, 255, .055);
+      --line: rgba(255, 255, 255, .12);
+      --gold-line: rgba(216, 167, 74, .42);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .section-wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .glass {
+      border: 1px solid var(--line);
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+    }
+
+    .gold-gradient {
+      background: linear-gradient(120deg, var(--gold), var(--gold-light));
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    h1 { max-width: 920px; font-size: clamp(50px, 8vw, 96px); }
+    h2 { font-size: clamp(38px, 5.6vw, 64px); }
+    h3 { font-size: clamp(28px, 3.4vw, 42px); }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0, 0, 0, .32);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      min-height: 64px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 26px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav a:hover { color: var(--gold); }
+
+    .icon-links {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .icon-link {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .06);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 110px 0 86px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: url("public/progulki-po-vode/hero-zaliv.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.45) 36%, rgba(0,0,0,.82) 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      max-width: 660px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+    }
+
+    .btn-primary { color: #05070b; }
+    .btn-secondary { border: 1px solid var(--line); background: rgba(255,255,255,.07); }
+
+    section { padding: 84px 0; }
+    .section-title { margin-bottom: 34px; }
+
+    .benefits,
+    .products,
+    .reviews,
+    .faq-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .benefits { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .products { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .reviews { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .benefit,
+    .review,
+    details {
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .benefit strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 18px;
+    }
+
+    .mark { color: var(--gold); font-size: 28px; }
+
+    .product-card {
+      overflow: hidden;
+      border: 1px solid var(--gold-line);
+      border-radius: 18px;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      height: 300px;
+      background: rgba(255,255,255,.05);
+    }
+
+    .slides {
+      display: flex;
+      height: 100%;
+      transition: transform .45s ease;
+      will-change: transform;
+    }
+
+    .slide {
+      position: relative;
+      flex: 0 0 100%;
+      height: 100%;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 42%, rgba(0,0,0,.72));
+      pointer-events: none;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      z-index: 2;
+    }
+
+    .carousel-caption p { margin-bottom: 4px; }
+
+    .control {
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .45);
+      color: var(--text);
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+
+    .control:hover { border-color: var(--gold); color: var(--gold); }
+    .prev { left: 12px; }
+    .next { right: 12px; }
+
+    .counter {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .55);
+      padding: 6px 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .thumbs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .thumb {
+      height: 46px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      opacity: .66;
+    }
+
+    .thumb.active {
+      border-color: var(--gold);
+      opacity: 1;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-body { padding: 22px; }
+
+    .product-body h3 { margin-bottom: 12px; }
+
+    .product-body ul {
+      margin: 18px 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .product-body li {
+      margin: 8px 0;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .product-body li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .price {
+      color: var(--gold);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .about-photo {
+      min-height: 460px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: url("public/progulki-po-vode/full-sailing/sailing-01.jpg") center / cover no-repeat;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .signature {
+      margin-top: 22px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+    }
+
+    .reviews .stars { color: var(--gold); letter-spacing: 2px; }
+
+    .contact {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .contact::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: url("public/progulki-po-vode/contact-kater.jpg") center / cover no-repeat;
+    }
+
+    .contact::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(0,0,0,.68);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    input {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      padding: 12px;
+      font: inherit;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .mobile-cta { display: none; }
+
+    @media (max-width: 1080px) {
+      .products { grid-template-columns: 1fr; }
+      .carousel { height: 440px; }
+    }
+
+    @media (max-width: 820px) {
+      .nav { display: none; }
+      .benefits,
+      .reviews,
+      .about,
+      .contact-grid { grid-template-columns: 1fr; }
+      .about-photo { min-height: 340px; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (max-width: 620px) {
+      .section-wrap { width: min(100% - 24px, 1180px); }
+      .hero { min-height: 88vh; padding-bottom: 92px; }
+      section { padding: 64px 0; }
+      .carousel { height: 310px; }
+      .thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .thumb { height: 42px; }
+      .icon-links { display: none; }
+      .mobile-cta {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: 50;
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="section-wrap topbar-inner">
+      <a class="brand" href="#top">Яхта Дениса</a>
+      <nav class="nav" aria-label="Навигация">
+        <a href="#benefits">Преимущества</a>
+        <a href="#products">Тарифы</a>
+        <a href="#denis">О Денисе</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="icon-links">
+        <a class="icon-link" href="tel:+79218639363" aria-label="Позвонить">☎</a>
+        <a class="icon-link" href="https://wa.me/79218639363" aria-label="WhatsApp">☏</a>
+        <a class="icon-link" href="https://t.me/" aria-label="Telegram">✈</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="section-wrap">
+        <p class="eyebrow">премиальные прогулки на воде</p>
+        <h1>Яхты и катера для особенных встреч в Санкт-Петербурге</h1>
+        <p class="lead">Выберите формат под свой сценарий: быстрый городской катер, моторная яхта Monte-Carlo Sealine F43 или спокойная парусная прогулка по заливу.</p>
+        <div class="actions">
+          <a class="btn btn-primary gold-gradient" href="#products">Смотреть тарифы</a>
+          <a class="btn btn-secondary" href="https://wa.me/79218639363">Написать в WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="benefits">
+      <div class="section-wrap">
+        <div class="section-title">
+          <h2>Почему гости возвращаются снова</h2>
+        </div>
+        <div class="benefits">
+          <div class="benefit glass"><div class="mark">♫</div><strong>Музыка и атмосфера</strong><p class="lead">Можно включить свой плейлист и собрать настроение под прогулку.</p></div>
+          <div class="benefit glass"><div class="mark">⌖</div><strong>Лучшие виды города</strong><p class="lead">Маршруты по центру, Неве, каналам и Финскому заливу.</p></div>
+          <div class="benefit glass"><div class="mark">✓</div><strong>Капитан на борту</strong><p class="lead">Опытное сопровождение и спокойная организация без суеты.</p></div>
+          <div class="benefit glass"><div class="mark">✦</div><strong>Формат под повод</strong><p class="lead">Свидание, день рождения, фотосъемка, деловая встреча или семейный выход.</p></div>
+          <div class="benefit glass"><div class="mark">◌</div><strong>Комфорт и приватность</strong><p class="lead">Подбираем судно под гостей, маршрут и желаемый темп.</p></div>
+          <div class="benefit glass"><div class="mark">◎</div><strong>Идеально для контента</strong><p class="lead">Вода, город, закаты и живые кадры без студийной постановки.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="section-wrap">
+        <div class="section-title">
+          <p class="eyebrow">тарифы и флот</p>
+          <h2>Выберите свой формат прогулки</h2>
+        </div>
+
+        <div class="products">
+          <article class="product-card glass" data-carousel>
+            <div class="carousel">
+              <div class="slides"></div>
+              <button class="control prev" type="button" aria-label="Предыдущее фото">‹</button>
+              <button class="control next" type="button" aria-label="Следующее фото">›</button>
+              <div class="counter"></div>
+              <div class="carousel-caption">
+                <p class="eyebrow">город, каналы, быстрый выход</p>
+                <h3>Катер</h3>
+              </div>
+            </div>
+            <div class="thumbs"></div>
+            <div class="product-body">
+              <h3>Катер</h3>
+              <ul>
+                <li>до 6 гостей</li>
+                <li>реки, каналы, центр Санкт-Петербурга</li>
+                <li>капитан, музыка, удобная посадка</li>
+                <li>короткая прогулка, фотосъемка или встреча</li>
+              </ul>
+              <p class="price">от 12 000 ₽</p>
+            </div>
+          </article>
+
+          <article class="product-card glass" data-carousel>
+            <div class="carousel">
+              <div class="slides"></div>
+              <button class="control prev" type="button" aria-label="Предыдущее фото">‹</button>
+              <button class="control next" type="button" aria-label="Следующее фото">›</button>
+              <div class="counter"></div>
+              <div class="carousel-caption">
+                <p class="eyebrow">Monte-Carlo Sealine F43</p>
+                <h3>Моторная яхта</h3>
+              </div>
+            </div>
+            <div class="thumbs"></div>
+            <div class="product-body">
+              <h3>Моторная яхта</h3>
+              <ul>
+                <li>до 10 гостей</li>
+                <li>Нева, Финский залив, вечерние маршруты</li>
+                <li>просторная палуба и приватная атмосфера</li>
+                <li>дни рождения, встречи с гостями, премиальный отдых</li>
+              </ul>
+              <p class="price">от 25 000 ₽</p>
+            </div>
+          </article>
+
+          <article class="product-card glass" data-carousel>
+            <div class="carousel">
+              <div class="slides"></div>
+              <button class="control prev" type="button" aria-label="Предыдущее фото">‹</button>
+              <button class="control next" type="button" aria-label="Следующее фото">›</button>
+              <div class="counter"></div>
+              <div class="carousel-caption">
+                <p class="eyebrow">ветер, залив и тишина</p>
+                <h3>Парусная яхта</h3>
+              </div>
+            </div>
+            <div class="thumbs"></div>
+            <div class="product-body">
+              <h3>Парусная яхта</h3>
+              <ul>
+                <li>до 6 гостей</li>
+                <li>Финский залив, Нева, закатные прогулки</li>
+                <li>мягкий темп и морская атмосфера</li>
+                <li>романтика, семейный отдых, красивые кадры</li>
+              </ul>
+              <p class="price">от 18 000 ₽</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="denis">
+      <div class="section-wrap about">
+        <div class="about-photo glass" aria-label="Атмосфера прогулки на яхте"></div>
+        <div class="about-text">
+          <p class="eyebrow">капитан и основатель nazaliv.ru</p>
+          <h2>Денис собирает прогулки так, чтобы их хотелось повторить</h2>
+          <p>Денис — капитан и основатель сервиса nazaliv.ru. Он сам любит воду, вечерний Петербург и спокойный отдых без лишней суеты, поэтому в каждой прогулке важны не только судно и маршрут, но и настроение.</p>
+          <p>Сервис помогает подобрать формат под повод: свидание, день рождения, фотосъемку, семейную прогулку или встречу с гостями. На борту заранее продумываются маршрут, длительность, посадка и детали, которые делают день цельным.</p>
+          <p>Главная идея nazaliv.ru — не просто аренда яхты, а понятный, красивый и человеческий отдых на воде.</p>
+          <div class="signature">Денис</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="section-wrap">
+        <div class="section-title"><h2>Отзывы</h2></div>
+        <div class="reviews">
+          <div class="review glass"><div class="stars">★★★★★</div><p>Невероятная атмосфера, красивые маршруты и спокойная организация. Вернемся снова.</p><strong>Анастасия</strong></div>
+          <div class="review glass"><div class="stars">★★★★★</div><p>Отличный капитан, хороший маршрут и очень приятный вечер на воде.</p><strong>Игорь</strong></div>
+          <div class="review glass"><div class="stars">★★★★★</div><p>Брали прогулку для дня рождения. Все прошло легко, красиво и без лишних вопросов.</p><strong>Мария</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="section-wrap">
+        <div class="section-title"><h2>FAQ</h2></div>
+        <div class="faq-grid">
+          <details class="glass"><summary>Можно со своей едой?</summary><p>Да, детали согласуем перед прогулкой.</p></details>
+          <details class="glass"><summary>Есть ли капитан?</summary><p>Да, прогулка проходит с капитаном.</p></details>
+          <details class="glass"><summary>Что если плохая погода?</summary><p>Обсуждаем перенос или другой удобный вариант заранее.</p></details>
+          <details class="glass"><summary>Можно включить свою музыку?</summary><p>Да, можно подготовить свой плейлист.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacts">
+      <div class="section-wrap">
+        <div class="section-title">
+          <p class="eyebrow">контакты</p>
+          <h2>Забронируйте прогулку уже сегодня</h2>
+        </div>
+        <form class="contact-grid" onsubmit="event.preventDefault(); alert('Спасибо! Мы свяжемся с вами.');">
+          <input required placeholder="Имя">
+          <input required placeholder="Телефон">
+          <input required type="date">
+          <input required type="number" min="1" max="12" placeholder="Гостей">
+          <button class="btn btn-primary gold-gradient" style="grid-column: 1 / -1; border: 0; cursor: pointer;">Забронировать яхту</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <a class="btn btn-primary gold-gradient mobile-cta" href="https://wa.me/79218639363">Забронировать</a>
+
+  <footer>
+    <div class="section-wrap footer-inner">
+      <div class="brand">Яхта Дениса</div>
+      <div>
+        <div>+7 (921) 863-93-63</div>
+        <div><a href="https://wa.me/79218639363">WhatsApp</a> · <a href="https://t.me/">Telegram</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const galleries = [
+      [
+        "public/progulki-po-vode/full-kater/kater-01.jpg",
+        "public/progulki-po-vode/full-kater/kater-02.jpg",
+        "public/progulki-po-vode/full-kater/kater-03.jpg",
+        "public/progulki-po-vode/full-kater/kater-04.jpg",
+        "public/progulki-po-vode/full-kater/kater-05.jpg",
+        "public/progulki-po-vode/full-kater/kater-06.jpg",
+        "public/progulki-po-vode/full-kater/kater-07.jpg"
+      ],
+      [
+        "public/progulki-po-vode/full-sealine/sealine-01.png",
+        "public/progulki-po-vode/full-sealine/sealine-02.png",
+        "public/progulki-po-vode/full-sealine/sealine-03.png",
+        "public/progulki-po-vode/full-sealine/sealine-04.png",
+        "public/progulki-po-vode/full-sealine/sealine-05.png",
+        "public/progulki-po-vode/full-sealine/sealine-06.png",
+        "public/progulki-po-vode/full-sealine/sealine-07.png",
+        "public/progulki-po-vode/full-sealine/sealine-08.png",
+        "public/progulki-po-vode/full-sealine/sealine-09.png",
+        "public/progulki-po-vode/full-sealine/sealine-10.png"
+      ],
+      [
+        "public/progulki-po-vode/full-sailing/sailing-01.jpg",
+        "public/progulki-po-vode/full-sailing/sailing-02.jpg",
+        "public/progulki-po-vode/full-sailing/sailing-03.jpg",
+        "public/progulki-po-vode/full-sailing/sailing-04.jpg",
+        "public/progulki-po-vode/full-sailing/sailing-05.jpg",
+        "public/progulki-po-vode/full-sailing/sailing-06.jpg",
+        "public/progulki-po-vode/full-sailing/sailing-07.png",
+        "public/progulki-po-vode/full-sailing/sailing-08.png"
+      ]
+    ];
+
+    document.querySelectorAll("[data-carousel]").forEach((card, cardIndex) => {
+      const images = galleries[cardIndex];
+      const slides = card.querySelector(".slides");
+      const thumbs = card.querySelector(".thumbs");
+      const counter = card.querySelector(".counter");
+      let active = 0;
+
+      images.forEach((src, index) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
+        slide.innerHTML = `<img src="${src}" alt="Фото ${index + 1}" loading="${index === 0 ? "eager" : "lazy"}">`;
+        slides.appendChild(slide);
+
+        const thumb = document.createElement("button");
+        thumb.type = "button";
+        thumb.className = "thumb";
+        thumb.innerHTML = `<img src="${src}" alt="Миниатюра ${index + 1}" loading="lazy">`;
+        thumb.addEventListener("click", () => setActive(index));
+        thumbs.appendChild(thumb);
+      });
+
+      const thumbButtons = Array.from(thumbs.querySelectorAll(".thumb"));
+
+      function setActive(nextIndex) {
+        active = (nextIndex + images.length) % images.length;
+        slides.style.transform = `translateX(-${active * 100}%)`;
+        counter.textContent = `${active + 1} / ${images.length}`;
+        thumbButtons.forEach((button, index) => button.classList.toggle("active", index === active));
+      }
+
+      card.querySelector(".prev").addEventListener("click", () => setActive(active - 1));
+      card.querySelector(".next").addEventListener("click", () => setActive(active + 1));
+      setActive(0);
+    });
+  </script>
+</body>
+</html>
