@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter" }
 const cormorant = Cormorant_Garamond({ subsets: ["latin", "cyrillic"], weight: ["400", "600", "700"], variable: "--font-cormorant" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nazaliv.ru"),
   title: "Яхта Дениса — аренда яхты в Санкт-Петербурге",
   description:
     "Премиальные прогулки на яхте в Санкт-Петербурге для романтики, отдыха и особенных встреч.",
