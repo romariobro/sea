@@ -4,7 +4,7 @@
   const image = document.getElementById("viewer-image");
   const caption = document.getElementById("viewer-caption");
   const counter = document.getElementById("viewer-counter");
-  const triggers = Array.from(document.querySelectorAll("button[data-full]"));
+  const triggers = Array.from(document.querySelectorAll("button[data-full]")).filter(button=>!button.closest(".islands-upgrade"));
   let group = [], current = 0, opener = null;
   function render() {
     const item = group[current];
@@ -42,7 +42,7 @@
 })();
 
 (() => {
- const rail=document.querySelector('.vy-island-grid'), cards=Array.from(rail.children), links=Array.from(document.querySelectorAll('.island-roadmap a'));
+ const rail=document.querySelector('.vy-island-grid');if(!rail)return;const cards=Array.from(rail.children), links=Array.from(document.querySelectorAll('.island-roadmap a'));
  const prev=document.querySelector('[data-island-prev]'),next=document.querySelector('[data-island-next]'),status=document.querySelector('[data-island-status]'),progress=document.querySelector('.island-progress');
  let current=0,frame=0;
  function sync(){

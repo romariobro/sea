@@ -1,0 +1,82 @@
+[
+  {
+    "id": 0,
+    "name": "Малый Высоцкий",
+    "coordinates": [
+      28.565316666666668,
+      60.6371
+    ],
+    "source": "client-coordinate-image",
+    "coordinateImage": 148
+  },
+  {
+    "id": 1,
+    "name": "Новик",
+    "coordinates": [
+      28.488916666666668,
+      60.631033333333335
+    ],
+    "source": "client-coordinate-image",
+    "coordinateImage": 150
+  },
+  {
+    "id": 2,
+    "name": "Густой",
+    "coordinates": [
+      28.531816666666668,
+      60.652483333333336
+    ],
+    "source": "client-coordinate-image",
+    "coordinateImage": 152
+  },
+  {
+    "id": 3,
+    "name": "Черновой",
+    "coordinates": [
+      28.521187,
+      60.657767
+    ],
+    "source": "reference-island-location",
+    "coordinateImage": null
+  },
+  {
+    "id": 4,
+    "name": "Овчинный",
+    "coordinates": [
+      28.60015,
+      60.6612
+    ],
+    "source": "client-coordinate-image",
+    "coordinateImage": 155
+  },
+  {
+    "id": 5,
+    "name": "Мыс Хвойный",
+    "coordinates": [
+      28.6216,
+      60.6701
+    ],
+    "source": "client-coordinate-image",
+    "coordinateImage": 157
+  },
+  {
+    "id": 6,
+    "name": "Соседский",
+    "coordinates": [
+      28.675583333333332,
+      60.69495
+    ],
+    "source": "client-coordinate-image",
+    "coordinateImage": 159
+  },
+  {
+    "id": 7,
+    "name": "Вихревой",
+    "coordinates": [
+      28.427778,
+      60.567778
+    ],
+    "source": "reference-island-location",
+    "coordinateImage": null
+  }
+]
