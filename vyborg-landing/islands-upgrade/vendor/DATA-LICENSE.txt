@@ -1,0 +1,4 @@
+Map data: OpenStreetMap contributors, ODbL. https://www.openstreetmap.org/copyright
+Vector tiles: OpenFreeMap/OpenMapTiles, snapshot 20261122_124456_pt. Region: Vyborg Bay only, zooms 9-12.
+MapLibre GL JS 4.7.1: BSD-3-Clause. Three.js 0.160.1: MIT. Noto Sans: SIL Open Font License.
+Source styles, glyphs and sprites: https://tiles.openfreemap.org/

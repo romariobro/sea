@@ -1,5 +1,5 @@
 export async function createBoatLayer(map,initial){
- const THREE=await import('https://esm.sh/three@0.160.1');
+ const THREE=await import('./vendor/three.module.js');
  const group=new THREE.Group(),ivory=new THREE.MeshStandardMaterial({color:0xf4eee0,roughness:.65}),dark=new THREE.MeshStandardMaterial({color:0x123441,roughness:.55}),gold=new THREE.MeshStandardMaterial({color:0xe4bc72,roughness:.5}),sailmat=new THREE.MeshStandardMaterial({color:0xfffaf0,side:THREE.DoubleSide,roughness:.8});
  function box(w,h,d,x,y,z,mat){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);group.add(m);return m;}
  for(const x of [-1.3,1.3]){box(.72,.65,5,x,.35,0,ivory);const bow=new THREE.Mesh(new THREE.ConeGeometry(.51,1.25,4),ivory);bow.rotation.x=-Math.PI/2;bow.rotation.z=Math.PI/4;bow.position.set(x,.35,-3.05);group.add(bow);}
